@@ -51,6 +51,7 @@
             <option value="@eventItem.Name">@eventItem.Name</option>
         }
     </select>
+    <button type="button" @onclick="AssignPlayerToEvent">Tilldela</button>
 </form>
 
 
@@ -82,4 +83,17 @@
         GameService.EventList.Remove(eventItem);
     }
 
+    private void AssignPlayerToEvent()
+    {
+        var selectedPlayer = GameService.PlayerList.FirstOrDefault(p => p.Name == SelectedPlayer);
+        var selectedEvent = GameService.EventList.FirstOrDefault(e => e.Name == SelectedEvent);
+
+        if (selectedPlayer != null && selectedEvent != null)
+        {
+            selectedPlayer.AssignedEvent = selectedEvent;
+        }
+
+        SelectedPlayer = string.Empty;
+        SelectedEvent = string.Empty;
+    }
 }
