@@ -19,6 +19,7 @@
     {
         <li>
             @player.Name
+            <button type="button" @onclick="() => RemovePlayer(player)">Ta bort</button>
         </li>
     }
 </ul>
@@ -29,6 +30,7 @@
     {
         <li>
             @eventItem.Name
+            <button type="button" @onclick="() => RemoveEvent(eventItem)">Ta bort</button>
         </li>
     }
 </ul>
@@ -49,4 +51,16 @@
         GameService.EventList.Add(new Event { Name = NewEvent });
         NewEvent = string.Empty;
     }
+
+    private void RemovePlayer(Player player)
+    {
+        GameService.PlayerList.Remove(player);
+    }
+
+    private void RemoveEvent(Event eventItem)
+    {
+        GameService.PlayerList.Where(p => p.AssignedEvent == eventItem).ToList().ForEach(p => p.AssignedEvent = null);
+        GameService.EventList.Remove(eventItem);
+    }
+
 }
