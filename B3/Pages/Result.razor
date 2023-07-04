@@ -5,6 +5,21 @@
 
 <h3>Resultat</h3>
 
+@if (GameService.PlayerList.Any())
+{
+    var playerScores = GameService.GetTotalScores();
+    for (int i = 0; i < Math.Min(playerScores.Count, 3); i++)
+    {
+        var playerScore = playerScores[i];
+        <h4>@(i + 1). plats: @playerScore.PlayerName! Poäng: @playerScore.TotalScore</h4>
+    }
+}
+else
+{
+    <p>Inga spelare hittades.</p>
+}
+
+
 <button @onclick="GoBack">Tillbaka</button>
 
 @code {
