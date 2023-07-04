@@ -59,7 +59,6 @@
 
     private void RemoveEvent(Event eventItem)
     {
-        GameService.PlayerList.Where(p => p.AssignedEvent == eventItem).ToList().ForEach(p => p.AssignedEvent = null);
         GameService.EventList.Remove(eventItem);
     }
 
