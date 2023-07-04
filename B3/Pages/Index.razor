@@ -54,6 +54,30 @@
     <button type="button" @onclick="AssignPlayerToEvent">Tilldela</button>
 </form>
 
+<h3>Anmälda spelare per gren</h3>
+@foreach (var eventItem in GameService.EventList)
+{
+    <h4>@eventItem.Name</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Spelare</th>
+                <th>Poäng</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var player in GameService.PlayerList.Where(p => p.AssignedEvent == eventItem))
+            {
+                <tr>
+                    <td>@player.Name</td>
+                    <td>@player.Score</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
 
 @code {
     private string NewPlayer;
