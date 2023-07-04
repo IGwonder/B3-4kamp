@@ -1,3 +1,32 @@
 ﻿@page "/"
+@inject GameService GameService
 
-<h1>Hello, world!</h1>
+<h3>Lägg till Spelare</h3>
+<form>
+    <input type="text" @bind="NewPlayer" placeholder="Spelarens namn" />
+    <button type="button" @onclick="AddPlayer">Lägg till</button>
+</form>
+
+<h3>Lägg till Gren</h3>
+<form>
+    <input type="text" @bind="NewEvent" placeholder="Gren" />
+    <button type="button" @onclick="AddEvent">Lägg till</button>
+</form>
+
+
+@code {
+    private string NewPlayer;
+    private string NewEvent;
+
+    private void AddPlayer()
+    {
+        GameService.PlayerList.Add(new Player { Name = NewPlayer, Score = 0 });
+        NewPlayer = string.Empty;
+    }
+
+    private void AddEvent()
+    {
+        GameService.EventList.Add(new Event { Name = NewEvent });
+        NewEvent = string.Empty;
+    }
+}
