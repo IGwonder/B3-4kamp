@@ -36,24 +36,6 @@
     }
 </ul>
 
-@*<h3>Tilldela spelare till gren</h3>
-<form>
-    <select @bind="SelectedPlayer">
-        <option value="">Välj spelare</option>
-        @foreach (var player in GameService.PlayerList)
-        {
-            <option value="@player.Name">@player.Name</option>
-        }
-    </select>
-    <select @bind="SelectedEvent">
-        <option value="">Välj gren</option>
-        @foreach (var eventItem in GameService.EventList)
-        {
-            <option value="@eventItem.Name">@eventItem.Name</option>
-        }
-    </select>
-    <button type="button" @onclick="() => AssignPlayerToEvent()">Tilldela</button>
-</form>*@
 
 <h3>Anmälda spelare per gren</h3>
 @foreach (var eventItem in GameService.EventList)
@@ -112,24 +94,6 @@
     {
         GameService.EventList.Remove(eventItem);
     }
-
-    @*private void AssignPlayerToEvent()
-    {
-        var selectedPlayer = GameService.PlayerList.FirstOrDefault(p => p.Name == SelectedPlayer);
-        var selectedEvent = GameService.EventList.FirstOrDefault(e => e.Name == SelectedEvent);
-
-        if (selectedPlayer != null && selectedEvent != null)
-        {
-            if (!selectedPlayer.AssignedEvents.Contains(selectedEvent))
-            {
-                selectedPlayer.AssignedEvents.Add(selectedEvent);
-                selectedPlayer.Scores[selectedEvent] = 0;
-            }
-        }
-
-        SelectedPlayer = string.Empty;
-        SelectedEvent = string.Empty;
-    }*@
 
     private void IncreaseScore(Player player, Event eventItem)
     {

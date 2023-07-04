@@ -10,7 +10,6 @@ public class GameService
 public class Player
 {
     public string Name { get; set; }
-    public List<Event> AssignedEvents { get; } = new List<Event>();
     public Dictionary<Event, int> Scores { get; } = new Dictionary<Event, int>();
 }
 
