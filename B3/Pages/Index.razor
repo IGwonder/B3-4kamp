@@ -36,7 +36,7 @@
     }
 </ul>
 
-<h3>Tilldela spelare till gren</h3>
+@*<h3>Tilldela spelare till gren</h3>
 <form>
     <select @bind="SelectedPlayer">
         <option value="">Välj spelare</option>
@@ -52,8 +52,8 @@
             <option value="@eventItem.Name">@eventItem.Name</option>
         }
     </select>
-    <button type="button" @onclick="AssignPlayerToEvent">Tilldela</button>
-</form>
+    <button type="button" @onclick="() => AssignPlayerToEvent()">Tilldela</button>
+</form>*@
 
 <h3>Anmälda spelare per gren</h3>
 @foreach (var eventItem in GameService.EventList)
@@ -68,13 +68,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var player in GameService.PlayerList.Where(p => p.AssignedEvent == eventItem))
+            @foreach (var player in GameService.PlayerList)
             {
                 <tr>
                     <td>@player.Name</td>
-                    <td>@player.Score</td>
+                    <td>@player.Scores.GetValueOrDefault(eventItem, 0)</td>
                     <td>
-                        <button type="button" @onclick="() => IncreaseScore(player)">Lägg till Poäng</button>
+                        <button type="button" @onclick="() => IncreaseScore(player, eventItem)">Lägg till Poäng</button>
                     </td>
                 </tr>
             }
@@ -93,7 +93,7 @@
 
     private void AddPlayer()
     {
-        GameService.PlayerList.Add(new Player { Name = NewPlayer, Score = 0 });
+        GameService.PlayerList.Add(new Player { Name = NewPlayer });
         NewPlayer = string.Empty;
     }
 
@@ -113,23 +113,34 @@
         GameService.EventList.Remove(eventItem);
     }
 
-    private void AssignPlayerToEvent()
+    @*private void AssignPlayerToEvent()
     {
         var selectedPlayer = GameService.PlayerList.FirstOrDefault(p => p.Name == SelectedPlayer);
         var selectedEvent = GameService.EventList.FirstOrDefault(e => e.Name == SelectedEvent);
 
         if (selectedPlayer != null && selectedEvent != null)
         {
-            selectedPlayer.AssignedEvent = selectedEvent;
+            if (!selectedPlayer.AssignedEvents.Contains(selectedEvent))
+            {
+                selectedPlayer.AssignedEvents.Add(selectedEvent);
+                selectedPlayer.Scores[selectedEvent] = 0;
+            }
         }
 
         SelectedPlayer = string.Empty;
         SelectedEvent = string.Empty;
-    }
+    }*@
 
-    private void IncreaseScore(Player player)
+    private void IncreaseScore(Player player, Event eventItem)
     {
-        player.Score++;
+        if (player.Scores.ContainsKey(eventItem))
+        {
+            player.Scores[eventItem]++;
+        }
+        else
+        {
+            player.Scores[eventItem] = 1;
+        }
     }
 
     private void ShowResults()
