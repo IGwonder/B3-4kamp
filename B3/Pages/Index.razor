@@ -35,10 +35,30 @@
     }
 </ul>
 
+<h3>Tilldela spelare till gren</h3>
+<form>
+    <select @bind="SelectedPlayer">
+        <option value="">Välj spelare</option>
+        @foreach (var player in GameService.PlayerList)
+        {
+            <option value="@player.Name">@player.Name</option>
+        }
+    </select>
+    <select @bind="SelectedEvent">
+        <option value="">Välj gren</option>
+        @foreach (var eventItem in GameService.EventList)
+        {
+            <option value="@eventItem.Name">@eventItem.Name</option>
+        }
+    </select>
+</form>
+
 
 @code {
     private string NewPlayer;
     private string NewEvent;
+    private string SelectedPlayer;
+    private string SelectedEvent;
 
     private void AddPlayer()
     {
