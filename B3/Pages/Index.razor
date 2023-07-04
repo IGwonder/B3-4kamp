@@ -72,6 +72,9 @@
                 <tr>
                     <td>@player.Name</td>
                     <td>@player.Score</td>
+                    <td>
+                        <button type="button" @onclick="() => IncreaseScore(player)">Lägg till Poäng</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -119,5 +122,10 @@
 
         SelectedPlayer = string.Empty;
         SelectedEvent = string.Empty;
+    }
+
+    private void IncreaseScore(Player player)
+    {
+        player.Score++;
     }
 }
