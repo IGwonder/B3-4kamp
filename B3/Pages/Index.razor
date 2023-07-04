@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject GameService GameService
+@inject NavigationManager NavigationManager
 
 <h3>Lägg till Spelare</h3>
 <form>
@@ -81,6 +82,8 @@
     </table>
 }
 
+<button type="button" @onclick="ShowResults">Avsluta</button>
+
 
 @code {
     private string NewPlayer;
@@ -127,5 +130,10 @@
     private void IncreaseScore(Player player)
     {
         player.Score++;
+    }
+
+    private void ShowResults()
+    {
+        NavigationManager.NavigateTo("results");
     }
 }

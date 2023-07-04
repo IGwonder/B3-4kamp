@@ -1,0 +1,15 @@
+﻿@page "/results"
+
+@inject GameService GameService
+@inject NavigationManager NavigationManager
+
+<h3>Resultat</h3>
+
+<button @onclick="GoBack">Tillbaka</button>
+
+@code {
+    private void GoBack()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}
