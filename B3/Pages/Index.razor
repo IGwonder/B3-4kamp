@@ -13,6 +13,26 @@
     <button type="button" @onclick="AddEvent">Lägg till</button>
 </form>
 
+<h3>Spelare</h3>
+<ul>
+    @foreach (var player in GameService.PlayerList)
+    {
+        <li>
+            @player.Name
+        </li>
+    }
+</ul>
+
+<h3>Grenar</h3>
+<ul>
+    @foreach (var eventItem in GameService.EventList)
+    {
+        <li>
+            @eventItem.Name
+        </li>
+    }
+</ul>
+
 
 @code {
     private string NewPlayer;
