@@ -6,19 +6,6 @@
 
 <h3>Resultat</h3>
 
-@if (GameService.PlayerList.Any())
-{
-    var playerScores = GameService.GetTotalScores();
-    for (int i = 0; i < Math.Min(playerScores.Count, 3); i++)
-    {
-        var playerScore = playerScores[i];
-        <h4>@(i + 1). plats: @playerScore.PlayerName! Poäng: @playerScore.TotalScore</h4>
-    }
-}
-else
-{
-    <p>Inga spelare hittades.</p>
-}
 
 @if (GameService.PlayerList.Any())
 {
@@ -32,16 +19,18 @@ else
             </TableRow>
         </TableHeader>
         <TableBody>
-            @for (int i = 0; i < Math.Min(playerScores.Count, 3); i++)
+            @for (int i = 0; i < Math.Min(3, playerScores.Count); i++)
             {
                 var playerScore = playerScores[i];
+                var placeNumber = i + 1;
                 <TableRow>
-                    <TableDataCell>@(i + 1). plats</TableDataCell>
-                    <TableDataCell>@playerScore.PlayerName</TableDataCell>
-                    <TableDataCell>@playerScore.TotalScore</TableDataCell>
+                    <TableRowCell>@(placeNumber). plats</TableRowCell>
+                    <TableRowCell>@playerScore.PlayerName</TableRowCell>
+                    <TableRowCell>@playerScore.TotalScore</TableRowCell>
                 </TableRow>
             }
         </TableBody>
+
     </Table>
 }
 else
