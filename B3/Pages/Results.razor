@@ -20,6 +20,35 @@ else
     <p>Inga spelare hittades.</p>
 }
 
+@if (GameService.PlayerList.Any())
+{
+    var playerScores = GameService.GetTotalScores();
+    <Table>
+        <TableHeader>
+            <TableRow>
+                <TableHeaderCell>Plats</TableHeaderCell>
+                <TableHeaderCell>Spelare</TableHeaderCell>
+                <TableHeaderCell>Poäng</TableHeaderCell>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            @for (int i = 0; i < Math.Min(playerScores.Count, 3); i++)
+            {
+                var playerScore = playerScores[i];
+                <TableRow>
+                    <TableDataCell>@(i + 1). plats</TableDataCell>
+                    <TableDataCell>@playerScore.PlayerName</TableDataCell>
+                    <TableDataCell>@playerScore.TotalScore</TableDataCell>
+                </TableRow>
+            }
+        </TableBody>
+    </Table>
+}
+else
+{
+    <p>Inga spelare hittades.</p>
+}
+
 
 <button @onclick="GoBack">Tillbaka</button>
 
